@@ -82,7 +82,7 @@ export default function WeatherDashboard() {
         {/* Temperature row with icon */}
         <div className="flex items-center justify-center gap-4 md:gap-8 mb-6">
           {/* Weather icon */}
-          <IconComponent size={192} strokeWidth={1} />
+          <IconComponent size={96} strokeWidth={1.5} />
 
           {/* Temperature - Hero element */}
           <div className="temperature-display">{weather.temperature}°</div>
