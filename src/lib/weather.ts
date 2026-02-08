@@ -58,13 +58,46 @@ export const turkishMonths = [
   "Aralık",
 ];
 
-// Format date in Turkish
+// Format date in Turkish (with year)
 export function formatTurkishDate(date: Date): string {
   const day = date.getDate();
   const month = turkishMonths[date.getMonth()];
+  const year = date.getFullYear();
   const dayName = turkishDays[date.getDay()];
-  return `${day} ${month} ${dayName}`;
+  return `${day} ${month} ${year} ${dayName}`;
 }
+
+// Weather code to icon name mapping (Lucide icons)
+export const weatherIcons: Record<number, string> = {
+  0: "Sun",           // Clear sky
+  1: "Sun",           // Mainly clear
+  2: "CloudSun",      // Partly cloudy
+  3: "Cloud",         // Overcast
+  45: "CloudFog",     // Fog
+  48: "CloudFog",     // Depositing rime fog
+  51: "CloudDrizzle", // Light drizzle
+  53: "CloudDrizzle", // Moderate drizzle
+  55: "CloudDrizzle", // Dense drizzle
+  56: "CloudDrizzle", // Freezing drizzle
+  57: "CloudDrizzle", // Dense freezing drizzle
+  61: "CloudRain",    // Slight rain
+  63: "CloudRain",    // Moderate rain
+  65: "CloudRain",    // Heavy rain
+  66: "CloudRain",    // Freezing rain
+  67: "CloudRain",    // Heavy freezing rain
+  71: "Snowflake",    // Slight snow
+  73: "Snowflake",    // Moderate snow
+  75: "Snowflake",    // Heavy snow
+  77: "Snowflake",    // Snow grains
+  80: "CloudRain",    // Slight showers
+  81: "CloudRain",    // Moderate showers
+  82: "CloudRain",    // Violent showers
+  85: "Snowflake",    // Slight snow showers
+  86: "Snowflake",    // Heavy snow showers
+  95: "CloudLightning", // Thunderstorm
+  96: "CloudLightning", // Thunderstorm with hail
+  99: "CloudLightning", // Thunderstorm with heavy hail
+};
 
 // Weather data interface
 export interface WeatherData {

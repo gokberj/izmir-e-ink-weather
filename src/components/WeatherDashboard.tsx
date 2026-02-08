@@ -3,9 +3,32 @@ import {
   fetchWeather,
   formatTurkishDate,
   generateStaticHTML,
+  weatherIcons,
   LOCATION,
   type WeatherData,
 } from "@/lib/weather";
+import {
+  Sun,
+  Cloud,
+  CloudSun,
+  CloudFog,
+  CloudDrizzle,
+  CloudRain,
+  CloudLightning,
+  Snowflake,
+  type LucideIcon,
+} from "lucide-react";
+
+const iconComponents: Record<string, LucideIcon> = {
+  Sun,
+  Cloud,
+  CloudSun,
+  CloudFog,
+  CloudDrizzle,
+  CloudRain,
+  CloudLightning,
+  Snowflake,
+};
 
 export default function WeatherDashboard() {
   const [weather, setWeather] = useState<WeatherData | null>(null);
@@ -42,12 +65,18 @@ export default function WeatherDashboard() {
     );
   }
 
+  const iconName = weatherIcons[weather.conditionCode] || "Cloud";
+  const IconComponent = iconComponents[iconName] || Cloud;
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground p-8">
       {/* Main content - centered */}
       <div className="flex flex-col items-center justify-center text-center flex-1">
         {/* Date */}
         <div className="date-display mb-12 md:mb-16">{date}</div>
+
+        {/* Weather icon */}
+        <IconComponent size={64} strokeWidth={1.5} className="mb-6" />
 
         {/* Temperature - Hero element */}
         <div className="temperature-display mb-6">{weather.temperature}°</div>
