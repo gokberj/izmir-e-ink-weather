@@ -75,11 +75,14 @@ export default function WeatherDashboard() {
         {/* Date */}
         <div className="date-display mb-12 md:mb-16">{date}</div>
 
-        {/* Weather icon */}
-        <IconComponent size={64} strokeWidth={1.5} className="mb-6" />
+        {/* Temperature row with icon */}
+        <div className="flex items-center justify-center gap-4 md:gap-8 mb-6">
+          {/* Weather icon */}
+          <IconComponent size={192} strokeWidth={1} />
 
-        {/* Temperature - Hero element */}
-        <div className="temperature-display mb-6">{weather.temperature}°</div>
+          {/* Temperature - Hero element */}
+          <div className="temperature-display">{weather.temperature}°</div>
+        </div>
 
         {/* Weather condition */}
         <div className="condition-display mb-16 md:mb-24">
