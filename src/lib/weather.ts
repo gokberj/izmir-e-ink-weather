@@ -58,13 +58,16 @@ export const turkishMonths = [
   "Aralık",
 ];
 
-// Format date in Turkish (with year)
-export function formatTurkishDate(date: Date): string {
+// Format date in Turkish (with year) - returns date and day name separately
+export function formatTurkishDate(date: Date): { datePart: string; dayName: string } {
   const day = date.getDate();
   const month = turkishMonths[date.getMonth()];
   const year = date.getFullYear();
   const dayName = turkishDays[date.getDay()];
-  return `${day} ${month} ${year} ${dayName}`;
+  return { 
+    datePart: `${day} ${month} ${year}`,
+    dayName 
+  };
 }
 
 // Weather code to icon name mapping (Lucide icons)
