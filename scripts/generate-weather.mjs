@@ -102,7 +102,8 @@ const svgIcons = {
 
 function formatTurkishDate(date) {
   const day = date.getDate();
-  const month = turkishMonths[date.getMonth()];
+  // Capitalize first letter only (not all uppercase)
+  const month = turkishMonths[date.getMonth()].charAt(0).toUpperCase() + turkishMonths[date.getMonth()].slice(1).toLowerCase();
   const year = date.getFullYear();
   const dayName = turkishDays[date.getDay()];
   return { datePart: `${day} ${month} ${year}`, dayName };
@@ -138,13 +139,6 @@ async function fetchWeather() {
 function generateHTML(dateInfo, weather, location) {
   const iconKey = weatherIcons[weather.current.conditionCode] || "cloud";
   const icon = svgIcons[iconKey];
-  
-  const hourlyHTML = weather.hourly.map(h => `
-    <div class="hour">
-      <div class="hour-time">${h.hour}</div>
-      <div class="hour-temp">${h.temperature}°</div>
-    </div>
-  `).join('');
 
   return `<!DOCTYPE html>
 <html lang="tr">
@@ -167,24 +161,25 @@ function generateHTML(dateInfo, weather, location) {
       -webkit-font-smoothing: antialiased;
     }
     .container {
-      min-height: 100vh;
+      min-height: calc(100vh + 50px);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 2rem;
+      padding-bottom: 52px;
       text-align: center;
     }
     .date {
-      font-size: 1.75rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      font-size: 3.5rem;
+      font-weight: bold;
+      letter-spacing: 0.02em;
       margin-bottom: 0.5rem;
     }
     .day-name {
-      font-size: 1.75rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      font-size: 3.5rem;
+      font-weight: bold;
+      letter-spacing: 0.02em;
       margin-bottom: 3rem;
     }
     .main-weather {
@@ -203,30 +198,9 @@ function generateHTML(dateInfo, weather, location) {
       line-height: 1;
     }
     .condition {
-      font-size: 1.5rem;
+      font-size: 3rem;
       letter-spacing: 0.02em;
-      margin-bottom: 2.5rem;
-    }
-    .hourly {
-      display: flex;
-      gap: 2rem;
       margin-bottom: 3rem;
-      padding: 1rem 0;
-      border-top: 1px solid #000;
-      border-bottom: 1px solid #000;
-    }
-    .hour {
-      text-align: center;
-    }
-    .hour-time {
-      font-size: 0.875rem;
-      letter-spacing: 0.1em;
-      opacity: 0.6;
-      margin-bottom: 0.25rem;
-    }
-    .hour-temp {
-      font-size: 1.25rem;
-      font-weight: 500;
     }
     .location {
       font-size: 0.875rem;
@@ -245,13 +219,11 @@ function generateHTML(dateInfo, weather, location) {
       <div class="temperature">${weather.current.temperature}°</div>
     </div>
     <div class="condition">${weather.current.condition}</div>
-    <div class="hourly">
-      ${hourlyHTML}
-    </div>
     <div class="location">${location}</div>
   </div>
 </body>
 </html>`;
+}
 }
 
 async function main() {
