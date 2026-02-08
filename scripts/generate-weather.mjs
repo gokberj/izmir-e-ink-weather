@@ -224,7 +224,6 @@ function generateHTML(dateInfo, weather, location) {
 </body>
 </html>`;
 }
-}
 
 async function main() {
   console.log('Fetching weather data...');
