@@ -32,13 +32,16 @@ const iconComponents: Record<string, LucideIcon> = {
 
 export default function WeatherDashboard() {
   const [weather, setWeather] = useState<WeatherData | null>(null);
-  const [date, setDate] = useState<string>("");
+  const [datePart, setDatePart] = useState<string>("");
+  const [dayName, setDayName] = useState<string>("");
   const [showExport, setShowExport] = useState(false);
 
   useEffect(() => {
     // Set Turkish date
     const now = new Date();
-    setDate(formatTurkishDate(now));
+    const { datePart, dayName } = formatTurkishDate(now);
+    setDatePart(datePart);
+    setDayName(dayName);
 
     // Fetch weather
     fetchWeather().then(setWeather);
@@ -47,7 +50,7 @@ export default function WeatherDashboard() {
   const handleExportClick = () => {
     if (!weather) return;
     const html = generateStaticHTML(
-      date,
+      `${datePart} ${dayName}`,
       weather.temperature,
       weather.condition,
       LOCATION.name
@@ -73,7 +76,8 @@ export default function WeatherDashboard() {
       {/* Main content - centered */}
       <div className="flex flex-col items-center justify-center text-center flex-1">
         {/* Date */}
-        <div className="date-display mb-12 md:mb-16">{date}</div>
+        <div className="date-display mb-2">{datePart}</div>
+        <div className="date-display mb-12 md:mb-16">{dayName}</div>
 
         {/* Temperature row with icon */}
         <div className="flex items-center justify-center gap-4 md:gap-8 mb-6">
